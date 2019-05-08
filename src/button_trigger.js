@@ -1,8 +1,12 @@
 const Printer = require('./printer.js')
+const ExerciseFactory = require('./exercise_factory.js')
 
 module.exports = class ButtonTrigger {
   constructor() {
-    this.printer = new Printer()
+    // TODO: maybe these should be done by callbacks or something, having everything
+    // in here makes ButtonTrigger untidy
+    this.printer = new Printer(true)
+    this.exercise_factory = new ExerciseFactory()
 
     this.player1Pressed = false;
     this.player2Pressed = false;
@@ -21,7 +25,7 @@ module.exports = class ButtonTrigger {
   triggerIfBoth() {
     if(this.player1Pressed && this.player2Pressed && this.printer.ready){
       console.log("both pressed")
-      this.printer.fake_print('woo!')
+      this.printer.print_multiline(this.exercise_factory.random_exercise())
     }
   }
 }
