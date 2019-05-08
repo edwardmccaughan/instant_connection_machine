@@ -11,5 +11,9 @@ module.exports = {
       console.log(`stdout: ${stdout}`);
       console.log(`stderr: ${stderr}`);
     });
+  },
+
+  fake_print: function(text) {
+    console.log('fake printing:', text)
   }
 }
