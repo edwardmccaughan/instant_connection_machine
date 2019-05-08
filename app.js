@@ -1,45 +1,5 @@
 const { app, BrowserWindow, ipcMain} = require('electron')
-const Printer = require('./src/printer.js')
-
-
-class ButtonTrigger {
-  constructor() {
-    console.log('constuctoring')
-    this.player1Pressed = false;
-    this.player2Pressed = false;
-
-    this.ready_to_print = true;
-  }
-
-  setPlayer1State(value) {
-    this.player1Pressed = value
-    this.triggerIfBoth()
-  }
-
-  setPlayer2State(value) {
-    this.player2Pressed = value
-    this.triggerIfBoth()
-  }
-
-  disable_printing() {
-    // TODO also disable and reenable LEDs
-    this.ready_to_print = false
-
-    setTimeout(() => {
-      console.log('ready to print again')
-      this.ready_to_print = true
-
-    }, 3000)
-  }
-
-  triggerIfBoth() {
-    if(this.player1Pressed && this.player2Pressed && this.ready_to_print){
-      console.log("both pressed")
-      Printer.fake_print('woo!')
-      this.disable_printing() // TODO: maybe this should be in printer.ready     
-    }
-  }
-}
+const ButtonTrigger = require('./src/button_trigger.js')
 
 
 createWindow = () => {
