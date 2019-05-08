@@ -1,0 +1,14 @@
+{
+  "name": "connection_machine_electron",
+  "version": "1.0.0",
+  "description": "",
+  "author": "edward mccaughan",
+  "license": "MIT",
+  "main": "app.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^4.1.4"
+  }
+}
