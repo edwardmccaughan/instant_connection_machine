@@ -6,9 +6,11 @@
   "license": "MIT",
   "main": "app.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "pi_start": "node pi_app.js"
   },
   "devDependencies": {
-    "electron": "^4.1.4"
+    "electron": "^4.1.4",
+    "rpi-gpio": "^2.1.3"
   }
 }
