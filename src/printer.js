@@ -5,7 +5,7 @@ module.exports = class Printer {
     this.ready = true
     this.print_disabled_time = 3000
     this.blank_lines = 4
-
+    this.printer_path = '/dev/usb/lp0'
     this.print_method = enable_printing ? this.print_line : this.fake_print
   }
 
@@ -39,7 +39,7 @@ module.exports = class Printer {
 
   print_line(text) {
     console.log('printing:', text)
-    const command = 'echo "' + text + '" >> /dev/usb/lp0'
+    const command = `echo "${text}" >> ${this.printer_path}`
 
     exec(command, (err, stdout, stderr) => {
       if (err) { return; }

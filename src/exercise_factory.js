@@ -1,6 +1,7 @@
-var fs = require('fs');
-var path = require('path')
- 
+const fs = require('fs');
+const path = require('path')
+const config = require('../config/default.js')
+
 module.exports = class ExerciseFactory {
   constructor() {
     this.load_exercises()
@@ -11,7 +12,7 @@ module.exports = class ExerciseFactory {
   }
 
   load_exercises(){
-    const exercise_file = path.join(__dirname, '../exercises.txt')
+    const exercise_file = path.join(__dirname, `../pages/${config.pages_file}`)
     const exercises_raw = fs.readFileSync(exercise_file, { encoding: 'utf8' });
     this.exercises = exercises_raw.split("#")
   }
