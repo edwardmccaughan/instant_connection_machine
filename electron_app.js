@@ -14,13 +14,10 @@ createWindow = () => {
   mainWindow.loadFile('index.html')
   mainWindow.webContents.openDevTools()
 
-
   let buttonTrigger = new ButtonTrigger(config.two_button_mode)
 
   ipcMain.on('keydown', (event, key) => {
     //console.log('keydown received', key)
-
-    // Printer.print_line('woooo')
     if (key === 'KeyQ') {
       buttonTrigger.setButton1State(true)
     } else if (key === 'KeyW') {

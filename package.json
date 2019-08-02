@@ -4,7 +4,7 @@
   "description": "",
   "author": "edward mccaughan",
   "license": "MIT",
-  "main": "app.js",
+  "main": "electron_app.js",
   "scripts": {
     "start": "electron .",
     "pi_start": "node pi_app.js"
