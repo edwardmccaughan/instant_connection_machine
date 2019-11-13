@@ -1,12 +1,10 @@
 const Gpio = require('pigpio').Gpio
-const ButtonTrigger = require('./src/button_trigger.js')
-const config = require('./config/default.js')
-
-let buttonTrigger = new ButtonTrigger(config.two_button_mode);
+const ConnectionMachine = require('./src/connection_machine.js')
 
 // curenttly working with GND (phsyical pin 25) and BCM11 (physical pin 23)
-
 console.log('running')
+
+const connection_machine = new ConnectionMachine()
 const button= new Gpio(11, { 
   mode: Gpio.input,
   pullUpDown: Gpio.PUD_UP,
@@ -15,7 +13,7 @@ const button= new Gpio(11, {
 button.glitchFilter(10000)
 
 button.on('interrupt', (level) => {
-    buttonTrigger.setButton1State(level === 1)
+  connection_machine.buttonTrigger.setButton1State(level === 1)
   console.log(level)
 })
 

@@ -7,10 +7,13 @@
   "main": "electron_app.js",
   "scripts": {
     "start": "electron .",
-    "pi_start": "node pi_app.js"
+    "pi_start": "node pi_app.js",
+    "test": "jest ./tests"
   },
   "devDependencies": {
     "electron": "^4.1.4",
+    "jest": "^24.9.0",
+    "mock-fs": "^4.10.3",
     "rpi-gpio": "^2.1.3"
   }
 }
