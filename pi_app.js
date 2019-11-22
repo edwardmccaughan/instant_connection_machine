@@ -1,27 +1,43 @@
-const gpio = require('rpi-gpio')
-const logger = require('pino')()
-const gpiop = gpio.promise;
+const Gpio = require('pigpio').Gpio
 const ConnectionMachine = require('./src/connection_machine.js')
 
-console.log('running pi app')
-logger.info('booted pi app')
+console.log('running pi_app.js')
 
-const button1_pin = 24
-const button2_pin = 26
-
-var button1_last_value = false
-var button2_last_value = false
+// Button numbers are BCM numbers
+buttons = {
+  button1: 11, //physical pin 23
+  led1: 10,    // physical pin 19
+  button2: 7,  //physical pin 26
+  led2: 8      //physical pin 24
+}
+// GND (phsyical pin 25 and 20)
 
 const connection_machine = new ConnectionMachine()
+const button= new Gpio(buttons.button1, { 
+  mode: Gpio.input,
+  pullUpDown: Gpio.PUD_UP,
+  edge: Gpio.EITHER_EDGE
+})
+button.glitchFilter(10000)
 
-gpio.on('change', function(channel, value) {
-  //console.log('Channel ' + channel + ' value is now ' + value);
-  if(channel===button1_pin) {
-    connection_machine.buttonTrigger.setButton1State(value)
-  } else if (channel===button2_pin) {
-    connection_machine.buttonTrigger.setButton2State(value)
-  }
-});
+button.on('interrupt', (level) => {
+  connection_machine.buttonTrigger.setButton1State(level != 1)
+  console.log('button1', level, level === 1)
+})
 
-gpio.setup(button1_pin, gpio.DIR_IN, gpio.EDGE_BOTH);
-//gpio.setup(button2_pin, gpio.DIR_IN, gpio.EDGE_BOTH);
+const button2= new Gpio(buttons.button2, { 
+  mode: Gpio.input,
+  pullUpDown: Gpio.PUD_UP,
+  edge: Gpio.EITHER_EDGE
+})
+button2.glitchFilter(10000)
+
+button2.on('interrupt', (level) => {
+  connection_machine.buttonTrigger.setButton2State(level != 1)
+  console.log('button2', level, level === 1)
+})
+
+const led = new Gpio(buttons.led1, { mode: Gpio.OUTPUT })
+led.digitalWrite(1)
+const led2 = new Gpio(buttons.led2, { mode: Gpio.OUTPUT })
+led2.digitalWrite(1)
