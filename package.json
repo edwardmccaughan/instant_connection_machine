@@ -11,7 +11,7 @@
     "test": "jest ./tests"
   },
   "devDependencies": {
-    "electron": "^4.1.4",
+    "electron": "^11.5.0",
     "jest": "^24.9.0",
     "mock-fs": "^4.10.3",
     "rpi-gpio": "^2.1.3",
